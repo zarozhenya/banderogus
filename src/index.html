@@ -31,7 +31,9 @@
               своїми подвигами, бороню Батьківщину та підтримую позитивний дух
               народу. Слава Україні!
             </p>
-            <button class="main-button">Запустити гуся</button>
+            <button type="button" class="button open-button">
+              Запустити гуся
+            </button>
           </div>
         </div>
       </section>
@@ -109,6 +111,47 @@
         </p>
       </div>
     </footer>
+    <div class="backdrop is-hidden">
+      <div class="modal is-hidden">
+        <button class="modal-close-btn">
+          <svg width="24px" height="24px" class="modal-close">
+            <use href="./images/icons-sprite.svg#icon-close"></use>
+          </svg>
+        </button>
+        <svg width="32px" height="52px" class="modal-icon">
+          <use href="./images/icons-sprite.svg#icon-tryzub"></use>
+        </svg>
+
+        <h4 class="modal-title">Поділися, будь ласка, поштою</h4>
+        <p class="modal-text">та запиши гуся до бандерозагону</p>
+        <form class="modal-form">
+          <div class="modal-field">
+            <label for="name" class="modal-label">Ім'я</label>
+            <input type="text" id="name" class="modal-input" />
+          </div>
+          <div class="modal-field">
+            <label for="email" class="modal-label">Email</label>
+            <input type="text" id="email" class="modal-input" />
+          </div>
+
+          <button type="submit" class="button modal-button">
+            Запустити гуся
+          </button>
+        </form>
+      </div>
+      <div class="thanks is-hidden">
+        <button class="thanks-close-btn">
+          <svg width="24px" height="24px" class="thanks-close">
+            <use href="./images/icons-sprite.svg#icon-close"></use>
+          </svg>
+        </button>
+        <svg width="32px" height="52px" class="thanks-icon">
+          <use href="./images/icons-sprite.svg#icon-tryzub"></use>
+        </svg>
+        <h4 class="thanks-title">Дякуємо, гусь успішно запущений</h4>
+        <p class="thanks-text">Слава Україні! Героям Слава!</p>
+      </div>
+    </div>
     <script type="module" src="./index.js"></script>
   </body>
 </html>
