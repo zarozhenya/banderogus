@@ -21,12 +21,16 @@ const refs = {
 
 const sendEmail = ({ name, message, email }) => {
   const templateParams = { name, message, email };
-  return emailjs.send(
-    API.serviceId,
-    API.templateId,
-    templateParams,
-    API.publicKey
-  );
+  try {
+    return emailjs.send(
+      API.serviceId,
+      API.templateId,
+      templateParams,
+      API.publicKey
+    );
+  } catch {
+    return Promise.reject('');
+  }
 };
 
 const showModalSuccess = () => {
