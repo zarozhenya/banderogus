@@ -1,6 +1,13 @@
 import 'modern-normalize';
 import { validate } from 'email-validator';
-import { Notify } from 'notiflix';
+import { Notify, Loading } from 'notiflix';
+import emailjs from '@emailjs/browser';
+
+const API = {
+  serviceId: 'service_n9ti8ek',
+  templateId: 'template_uwckkev',
+  publicKey: 'kSxB1LCETFoXYI4H1',
+};
 
 const refs = {
   openModalBtn: document.querySelector('button.open-button'),
@@ -10,6 +17,16 @@ const refs = {
   thanks: document.querySelector('.thanks'),
   closeThanksBtn: document.querySelector('.thanks-close-btn'),
   form: document.querySelector('.modal-form'),
+};
+
+const sendEmail = ({ name, message, email }) => {
+  const templateParams = { name, message, email };
+  return emailjs.send(
+    API.serviceId,
+    API.templateId,
+    templateParams,
+    API.publicKey
+  );
 };
 
 const showModalSuccess = () => {
@@ -38,15 +55,32 @@ const onFormSubmit = e => {
     });
     return;
   }
-  showModalSuccess();
-  e.currentTarget.reset();
+  Loading.dots();
+  sendEmail({
+    email: email.value,
+    name: name.value,
+    message: 'Дякуємо за запущеного гуся!',
+  })
+    .then(() => {
+      Loading.remove();
+      showModalSuccess();
+    })
+    .catch(() => {
+      Loading.remove();
+      showMessage({ type: 'failure', message: 'Щось пішло не так' });
+      onCloseModal();
+    })
+    .finally(() => {
+      e.target.reset();
+    });
 };
 
-const onCLoseThanks = e => {
+const onCloseThanks = e => {
   refs.thanks.classList.add('is-hidden');
   refs.backdrop.classList.add('is-hidden');
 };
+
 refs.openModalBtn.addEventListener('click', onOpenModal);
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.form.addEventListener('submit', onFormSubmit);
-refs.closeThanksBtn.addEventListener('click', onCLoseThanks);
+refs.closeThanksBtn.addEventListener('click', onCloseThanks);
